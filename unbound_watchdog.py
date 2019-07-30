@@ -5,10 +5,10 @@ date = datetime.datetime.now()
 uptime = os.popen('uptime').read()
 timestamp = date.strftime("%d%m%Y_%H:%M:%S")
 touch = 'touch /home/pi/unbound_watchdog/touch'
-os.system(touch)
+os.system(touch) #create touch file as a confirm, that a script has been executed
 
 
-
+#check if system has been restarted (uptime < 5 minutes)
 uptime_check = subprocess.Popen(['cat','/proc/uptime'],
                 stdout = subprocess.PIPE,
                 stderr = subprocess.STDOUT)
@@ -25,7 +25,7 @@ if int(uptime_check[0]) < 300:
 else:
         exit()
 
-
+#test of connection to selected URLs
 success_counter = 0
 urls = ['http://www.google.com','http://www.fast.com','http://www.apple.com']
 
@@ -49,6 +49,7 @@ if success_counter < 2:
 else:
         exit()
 
+# if uptime is < 5 minutes and connection is not possible to more than 1 defined URL, restart of Unbound service is executed
 if uptime_check == 1 and url_check == 1:
 
 
