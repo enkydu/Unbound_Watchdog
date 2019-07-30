@@ -4,7 +4,7 @@ import datetime
 date = datetime.datetime.now()
 uptime = os.popen('uptime').read()
 timestamp = date.strftime("%d%m%Y_%H:%M:%S")
-touch = 'touch /home/pi/Python/touch'
+touch = 'touch /home/pi/unbound_watchdog/touch'
 os.system(touch)
 
 
@@ -17,7 +17,7 @@ stdout,stderr = uptime_check.communicate()
 uptime_check = stdout.split('.')
 
 if int(uptime_check[0]) < 300:
-                f = open("/home/pi/Python/unbound_check_%s.log" %timestamp, "a")
+                f = open("/home/pi/unbound_watchdog/unbound_check_%s.log" %timestamp, "a")
                 print >> f, date
                 print >> f, ""
                 print >> f, uptime
